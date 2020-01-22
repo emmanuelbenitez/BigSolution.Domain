@@ -6,21 +6,6 @@ namespace BigSolution.Infra.Domain
 {
     public abstract class Entity<TId> : IEntity
     {
-        protected Entity()
-            : this(default)
-        {
-        }
-
-        protected Entity(TId id)
-        {
-            Id = id;
-        }
-
-        // ReSharper disable once AutoPropertyCanBeMadeGetOnly.Local
-        public TId Id { get; private set; }
-
-        private bool IsNew => Equals(Id, default(TId));
-
         #region Operators
 
         public static bool operator ==(Entity<TId> left, Entity<TId> right)
@@ -35,13 +20,21 @@ namespace BigSolution.Infra.Domain
 
         #endregion
 
+        protected Entity()
+            : this(default) { }
+
+        protected Entity(TId id)
+        {
+            Id = id;
+        }
+
         #region Base Class Member Overrides
 
         public override bool Equals(object obj)
         {
             return ReferenceEquals(this, obj) ||
-                   obj is Entity<TId> entity && !(entity.IsNew && IsNew) &&
-                   EqualityComparer<TId>.Default.Equals(Id, entity.Id);
+                obj is Entity<TId> entity && !(entity.IsNew && IsNew) &&
+                EqualityComparer<TId>.Default.Equals(Id, entity.Id);
         }
 
         [SuppressMessage("ReSharper", "NonReadonlyMemberInGetHashCode")]
@@ -56,5 +49,11 @@ namespace BigSolution.Infra.Domain
         }
 
         #endregion
+
+        // ReSharper disable once AutoPropertyCanBeMadeGetOnly.Local
+        [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
+        public TId Id { get; private set; }
+
+        private bool IsNew => Equals(Id, default(TId));
     }
 }

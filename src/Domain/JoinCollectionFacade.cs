@@ -7,19 +7,26 @@ namespace BigSolution.Infra.Domain
     public class JoinCollectionFacade<TEntity, TOwnerEntity, TJoinEntity>
         : ICollection<TEntity>
         where TJoinEntity : class, IJoinEntity<TEntity>, IJoinEntity<TOwnerEntity>, new()
-        //where TEntity : class//, IEntity
+        where TEntity : class
         where TOwnerEntity : class, IEntity
     {
-        private readonly ICollection<TJoinEntity> _collection;
-        private readonly TOwnerEntity _ownerEntity;
+        private static bool Equals(TEntity item, TJoinEntity e)
+        {
+            return Equals(((IJoinEntity<TEntity>) e).Navigation, item);
+        }
 
         public JoinCollectionFacade(
             TOwnerEntity ownerEntity,
             ICollection<TJoinEntity> collection)
         {
+            Requires.NotNull(ownerEntity, nameof(ownerEntity));
+            Requires.NotNull(collection, nameof(collection));
+
             _ownerEntity = ownerEntity;
             _collection = collection;
         }
+
+        #region ICollection<TEntity> Members
 
         public IEnumerator<TEntity> GetEnumerator()
         {
@@ -51,7 +58,8 @@ namespace BigSolution.Infra.Domain
 
         public void CopyTo(TEntity[] array, int arrayIndex)
         {
-            this.ToList().CopyTo(array, arrayIndex);
+            _collection.Select(entity => ((IJoinEntity<TEntity>) entity).Navigation).ToList()
+                .CopyTo(array, arrayIndex);
         }
 
         public bool Remove(TEntity item)
@@ -66,9 +74,9 @@ namespace BigSolution.Infra.Domain
         public bool IsReadOnly
             => _collection.IsReadOnly;
 
-        private static bool Equals(TEntity item, TJoinEntity e)
-        {
-            return Equals(((IJoinEntity<TEntity>) e).Navigation, item);
-        }
+        #endregion
+
+        private readonly ICollection<TJoinEntity> _collection;
+        private readonly TOwnerEntity _ownerEntity;
     }
 }

@@ -7,6 +7,22 @@ namespace BigSolution.Infra.Domain
     public abstract class ValueObject<T> : IEquatable<T>
         where T : ValueObject<T>
     {
+        #region Operators
+
+        public static bool operator ==(ValueObject<T> left, ValueObject<T> right)
+        {
+            return Equals(left, right);
+        }
+
+        public static bool operator !=(ValueObject<T> left, ValueObject<T> right)
+        {
+            return !(left == right);
+        }
+
+        #endregion
+
+        #region IEquatable<T> Members
+
         public bool Equals(T other)
         {
             if (other == null) return false;
@@ -15,15 +31,9 @@ namespace BigSolution.Infra.Domain
                 .SequenceEqual(other.GetAttributesToIncludeInEqualityCheck());
         }
 
-        public static bool operator !=(ValueObject<T> left, ValueObject<T> right)
-        {
-            return !(left == right);
-        }
+        #endregion
 
-        public static bool operator ==(ValueObject<T> left, ValueObject<T> right)
-        {
-            return Equals(left, right);
-        }
+        #region Base Class Member Overrides
 
         public override bool Equals(object obj)
         {
@@ -32,13 +42,10 @@ namespace BigSolution.Infra.Domain
 
         public override int GetHashCode()
         {
-            var hash = 17;
-
-            foreach (var obj in GetAttributesToIncludeInEqualityCheck())
-                hash = hash * 31 + (obj == null ? 0 : obj.GetHashCode());
-
-            return hash;
+            return GetAttributesToIncludeInEqualityCheck().Aggregate(17, (current, obj) => current * 31 + (obj == null ? 0 : obj.GetHashCode()));
         }
+
+        #endregion
 
         protected abstract IEnumerable<object> GetAttributesToIncludeInEqualityCheck();
     }

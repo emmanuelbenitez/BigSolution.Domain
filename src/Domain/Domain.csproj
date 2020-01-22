@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>netcoreapp3.0;netcoreapp3.1;netstandard2.1;netstandard2.0;net471;net472;net48</TargetFrameworks>
-    <AssemblyTitle>BigSolution.Infra.Dmain</AssemblyTitle>
+    <AssemblyTitle>BigSolution.Infra.Domain</AssemblyTitle>
     <RootNamespace>BigSolution.Infra.Domain</RootNamespace>
   </PropertyGroup>
 
@@ -26,9 +26,11 @@
     <PackageTags>domain infrastructure ddd</PackageTags>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <AssemblyName>BigSolution.Infra.Domain</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="BigSolution.Infra.Validation" Version="1.0.0" />
     <PackageReference Include="JetBrains.Annotations" Version="2019.1.3" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0">
       <PrivateAssets>all</PrivateAssets>
