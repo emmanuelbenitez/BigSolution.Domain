@@ -1,6 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+#if HAVE_HASHCODE
+using System;
+#endif
 
 namespace BigSolution.Infra.Domain
 {

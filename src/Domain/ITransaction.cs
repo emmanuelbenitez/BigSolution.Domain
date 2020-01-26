@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace BigSolution.Infra.Domain
@@ -11,8 +12,8 @@ namespace BigSolution.Infra.Domain
 
         void Rollback();
 
-        Task CommitAsync();
+        Task CommitAsync(CancellationToken cancellationToken = default);
 
-        Task RollbackAsync();
+        Task RollbackAsync(CancellationToken cancellationToken = default);
     }
 }
