@@ -40,7 +40,7 @@ namespace BigSolution.Infra.Domain
 
             public Parent(int id) : base(id) { }
 
-            public IEnumerable<Child> Children => CollectionFacade;
+            public IEnumerable<Child> Children => CollectionFacade.Entities;
         }
 
         [ExcludeFromCodeCoverage]

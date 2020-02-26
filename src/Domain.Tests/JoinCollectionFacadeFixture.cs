@@ -17,7 +17,7 @@ namespace BigSolution.Infra.Domain
             var collectionFacade = new JoinCollectionFacade<Child, Parent, Link>(new Parent(), new List<Link>());
             var child = new Child();
             collectionFacade.Add(child);
-            collectionFacade.Should().ContainSingle(child1 => child1 == child);
+            collectionFacade.Entities.Should().ContainSingle(child1 => child1 == child);
         }
 
         [Fact]
@@ -93,7 +93,7 @@ namespace BigSolution.Infra.Domain
         [Fact]
         public void GetEnumeratorSucceeds()
         {
-            new JoinCollectionFacade<Child, Parent, Link>(new Parent(), new List<Link>())
+            ((IEnumerable)new JoinCollectionFacade<Child, Parent, Link>(new Parent(), new List<Link>()))
                 .GetEnumerator()
                 .Should().NotBeNull();
         }

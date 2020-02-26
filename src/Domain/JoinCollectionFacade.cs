@@ -5,7 +5,7 @@ using System.Linq;
 namespace BigSolution.Infra.Domain
 {
     public class JoinCollectionFacade<TEntity, TOwnerEntity, TJoinEntity>
-        : ICollection<TEntity>
+        : IEnumerable<TJoinEntity>
         where TJoinEntity : class, IJoinEntity<TEntity>, IJoinEntity<TOwnerEntity>, new()
         where TEntity : class
         where TOwnerEntity : class, IEntity
@@ -26,17 +26,27 @@ namespace BigSolution.Infra.Domain
             _collection = collection;
         }
 
-        #region ICollection<TEntity> Members
+        #region IEnumerable<TJoinEntity> Members
 
-        public IEnumerator<TEntity> GetEnumerator()
+        public IEnumerator<TJoinEntity> GetEnumerator()
         {
-            return _collection.Select(e => ((IJoinEntity<TEntity>) e).Navigation).GetEnumerator();
+            return _collection.GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
         }
+
+        #endregion
+
+        public int Count
+            => _collection.Count;
+
+        public IEnumerable<TEntity> Entities => _collection.Select(e => ((IJoinEntity<TEntity>) e).Navigation);
+
+        public bool IsReadOnly
+            => _collection.IsReadOnly;
 
         public void Add(TEntity item)
         {
@@ -67,14 +77,6 @@ namespace BigSolution.Infra.Domain
             return _collection.Remove(
                 _collection.FirstOrDefault(e => Equals(item, e)));
         }
-
-        public int Count
-            => _collection.Count;
-
-        public bool IsReadOnly
-            => _collection.IsReadOnly;
-
-        #endregion
 
         private readonly ICollection<TJoinEntity> _collection;
         private readonly TOwnerEntity _ownerEntity;
