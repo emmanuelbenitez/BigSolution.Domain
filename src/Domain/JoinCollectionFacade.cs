@@ -1,11 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 namespace BigSolution.Infra.Domain
 {
     public class JoinCollectionFacade<TEntity, TOwnerEntity, TJoinEntity>
-        : IEnumerable<TJoinEntity>
+        : ICollection<TJoinEntity>
         where TJoinEntity : class, IJoinEntity<TEntity>, IJoinEntity<TOwnerEntity>, new()
         where TEntity : class
         where TOwnerEntity : class, IEntity
@@ -26,7 +27,7 @@ namespace BigSolution.Infra.Domain
             _collection = collection;
         }
 
-        #region IEnumerable<TJoinEntity> Members
+        #region ICollection<TJoinEntity> Members
 
         public IEnumerator<TJoinEntity> GetEnumerator()
         {
@@ -38,15 +39,44 @@ namespace BigSolution.Infra.Domain
             return GetEnumerator();
         }
 
-        #endregion
+        [ExcludeFromCodeCoverage]
+        bool ICollection<TJoinEntity>.Remove(TJoinEntity item)
+        {
+            return _collection.Remove(item);
+        }
 
         public int Count
             => _collection.Count;
 
-        public IEnumerable<TEntity> Entities => _collection.Select(e => ((IJoinEntity<TEntity>) e).Navigation);
-
         public bool IsReadOnly
             => _collection.IsReadOnly;
+
+        [ExcludeFromCodeCoverage]
+        void ICollection<TJoinEntity>.Add(TJoinEntity item)
+        {
+            _collection.Add(item);
+        }
+
+        public void Clear()
+        {
+            _collection.Clear();
+        }
+
+        [ExcludeFromCodeCoverage]
+        bool ICollection<TJoinEntity>.Contains(TJoinEntity item)
+        {
+            return _collection.Contains(item);
+        }
+
+        [ExcludeFromCodeCoverage]
+        void ICollection<TJoinEntity>.CopyTo(TJoinEntity[] array, int arrayIndex)
+        {
+            _collection.CopyTo(array, arrayIndex);
+        }
+
+        #endregion
+
+        public IEnumerable<TEntity> Entities => _collection.Select(e => ((IJoinEntity<TEntity>) e).Navigation);
 
         public void Add(TEntity item)
         {
@@ -54,11 +84,6 @@ namespace BigSolution.Infra.Domain
             ((IJoinEntity<TEntity>) entity).Navigation = item;
             ((IJoinEntity<TOwnerEntity>) entity).Navigation = _ownerEntity;
             _collection.Add(entity);
-        }
-
-        public void Clear()
-        {
-            _collection.Clear();
         }
 
         public bool Contains(TEntity item)
