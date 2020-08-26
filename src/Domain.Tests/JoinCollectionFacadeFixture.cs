@@ -1,8 +1,25 @@
-﻿using System;
+﻿#region Copyright & License
+
+// Copyright © 2020 - 2020 Emmanuel Benitez
+// 
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+// 
+// http://www.apache.org/licenses/LICENSE-2.0
+// 
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+#endregion
+
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using FluentAssertions;
 using JetBrains.Annotations;
 using Xunit;
@@ -55,7 +72,7 @@ namespace BigSolution.Infra.Domain
             var collectionFacade = new JoinCollectionFacade<Child, Parent, Link>(new Parent(), new List<Link>()) { item };
             var items = new Child[1];
             collectionFacade.CopyTo(items, 0);
-            items.SingleOrDefault().Should().Be(item);
+            items.Should().ContainSingle(child => child == item);
         }
 
         [Fact]
@@ -63,7 +80,7 @@ namespace BigSolution.Infra.Domain
         {
             var collectionFacade = new JoinCollectionFacade<Child, Parent, Link>(new Parent(), new List<Link>())
                 { new Child() };
-            collectionFacade.Count.Should().Be(1);
+            collectionFacade.Should().ContainSingle();
         }
 
         [Theory]
@@ -71,16 +88,16 @@ namespace BigSolution.Infra.Domain
         [SuppressMessage("ReSharper", "ObjectCreationAsStatement")]
         public void CreateFailed(Parent parent, ICollection<Link> links)
         {
-            Action action = () => new JoinCollectionFacade<Child, Parent, Link>(parent, links);
-            action.Should().ThrowExactly<ArgumentNullException>();
+            Action act = () => new JoinCollectionFacade<Child, Parent, Link>(parent, links);
+            act.Should().ThrowExactly<ArgumentNullException>();
         }
 
         [Fact]
         [SuppressMessage("ReSharper", "ObjectCreationAsStatement")]
         public void CreateSucceeds()
         {
-            Action action = () => new JoinCollectionFacade<Child, Parent, Link>(new Parent(), new List<Link>());
-            action.Should().NotThrow();
+            Action act = () => new JoinCollectionFacade<Child, Parent, Link>(new Parent(), new List<Link>());
+            act.Should().NotThrow();
         }
 
         [Fact]
@@ -93,7 +110,7 @@ namespace BigSolution.Infra.Domain
         [Fact]
         public void GetEnumeratorSucceeds()
         {
-            ((IEnumerable)new JoinCollectionFacade<Child, Parent, Link>(new Parent(), new List<Link>()))
+            ((IEnumerable) new JoinCollectionFacade<Child, Parent, Link>(new Parent(), new List<Link>()))
                 .GetEnumerator()
                 .Should().NotBeNull();
         }
@@ -109,8 +126,8 @@ namespace BigSolution.Infra.Domain
         {
             var item = new Child();
             var collectionFacade = new JoinCollectionFacade<Child, Parent, Link>(new Parent(), new List<Link>()) { item };
-            Action action = () => collectionFacade.Remove(item);
-            action.Should().NotThrow();
+            Action act = () => collectionFacade.Remove(item);
+            act.Should().NotThrow();
             collectionFacade.Should().BeEmpty();
         }
 

@@ -13,10 +13,6 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <DeterministicSourcePaths Condition="'$(EnableSourceLink)' == ''">false</DeterministicSourcePaths>
-  </PropertyGroup>
-
-  <PropertyGroup>
     <GeneratePackageOnBuild Condition=" '$(GeneratePackageOnBuild)' == '' ">false</GeneratePackageOnBuild>
     <PackageId>$(AssemblyTitle)</PackageId>
     <PackageDescription>$(Description)</PackageDescription>

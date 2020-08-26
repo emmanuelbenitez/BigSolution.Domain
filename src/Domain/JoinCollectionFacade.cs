@@ -1,4 +1,22 @@
-﻿using System.Collections;
+﻿#region Copyright & License
+
+// Copyright © 2020 - 2020 Emmanuel Benitez
+// 
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+// 
+// http://www.apache.org/licenses/LICENSE-2.0
+// 
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+#endregion
+
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
@@ -29,28 +47,6 @@ namespace BigSolution.Infra.Domain
 
         #region ICollection<TJoinEntity> Members
 
-        public IEnumerator<TJoinEntity> GetEnumerator()
-        {
-            return _collection.GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
-
-        [ExcludeFromCodeCoverage]
-        bool ICollection<TJoinEntity>.Remove(TJoinEntity item)
-        {
-            return _collection.Remove(item);
-        }
-
-        public int Count
-            => _collection.Count;
-
-        public bool IsReadOnly
-            => _collection.IsReadOnly;
-
         [ExcludeFromCodeCoverage]
         void ICollection<TJoinEntity>.Add(TJoinEntity item)
         {
@@ -72,6 +68,28 @@ namespace BigSolution.Infra.Domain
         void ICollection<TJoinEntity>.CopyTo(TJoinEntity[] array, int arrayIndex)
         {
             _collection.CopyTo(array, arrayIndex);
+        }
+
+        public int Count
+            => _collection.Count;
+
+        public bool IsReadOnly
+            => _collection.IsReadOnly;
+
+        [ExcludeFromCodeCoverage]
+        bool ICollection<TJoinEntity>.Remove(TJoinEntity item)
+        {
+            return _collection.Remove(item);
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
+        public IEnumerator<TJoinEntity> GetEnumerator()
+        {
+            return _collection.GetEnumerator();
         }
 
         #endregion
