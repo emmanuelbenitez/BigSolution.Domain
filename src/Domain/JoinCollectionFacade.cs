@@ -38,8 +38,12 @@ namespace BigSolution.Infra.Domain
             TOwnerEntity ownerEntity,
             ICollection<TJoinEntity> collection)
         {
-            Requires.NotNull(ownerEntity, nameof(ownerEntity));
-            Requires.NotNull(collection, nameof(collection));
+            Requires.Argument(ownerEntity, nameof(ownerEntity))
+                .IsNotNull()
+                .Check();
+            Requires.Argument(collection, nameof(collection))
+                .IsNotNull()
+                .Check();
 
             _ownerEntity = ownerEntity;
             _collection = collection;
