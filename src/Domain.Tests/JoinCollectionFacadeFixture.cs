@@ -1,6 +1,6 @@
 ﻿#region Copyright & License
 
-// Copyright © 2020 - 2020 Emmanuel Benitez
+// Copyright © 2020 - 2021 Emmanuel Benitez
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -24,7 +24,7 @@ using FluentAssertions;
 using JetBrains.Annotations;
 using Xunit;
 
-namespace BigSolution.Infra.Domain
+namespace BigSolution.Domain
 {
     public class JoinCollectionFacadeFixture
     {
@@ -126,8 +126,7 @@ namespace BigSolution.Infra.Domain
         {
             var item = new Child();
             var collectionFacade = new JoinCollectionFacade<Child, Parent, Link>(new Parent(), new List<Link>()) { item };
-            Action act = () => collectionFacade.Remove(item);
-            act.Should().NotThrow();
+            collectionFacade.Remove(item).Should().BeTrue();
             collectionFacade.Should().BeEmpty();
         }
 

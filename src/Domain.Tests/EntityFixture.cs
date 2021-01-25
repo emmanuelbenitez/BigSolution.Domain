@@ -1,6 +1,6 @@
 #region Copyright & License
 
-// Copyright © 2020 - 2020 Emmanuel Benitez
+// Copyright © 2020 - 2021 Emmanuel Benitez
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -16,13 +16,16 @@
 
 #endregion
 
-using System;
 using System.Collections.Generic;
 using FluentAssertions;
 using JetBrains.Annotations;
 using Xunit;
+#if HAVE_HASHCODE
+using System;
 
-namespace BigSolution.Infra.Domain
+#endif
+
+namespace BigSolution.Domain
 {
     public class EntityFixture
     {
@@ -44,7 +47,7 @@ namespace BigSolution.Infra.Domain
         public void GetHashCodeSucceeds()
         {
 #if !HAVE_HASHCODE
-             new FakeEntity(1).GetHashCode().Should().Be(1.GetHashCode())
+            new FakeEntity(1).GetHashCode().Should().Be(1.GetHashCode());
 #endif
 #if HAVE_HASHCODE
             new FakeEntity(1).GetHashCode().Should().Be(HashCode.Combine(1));

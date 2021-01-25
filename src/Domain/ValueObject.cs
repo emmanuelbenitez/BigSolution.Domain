@@ -1,6 +1,6 @@
 ﻿#region Copyright & License
 
-// Copyright © 2020 - 2020 Emmanuel Benitez
+// Copyright © 2020 - 2021 Emmanuel Benitez
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace BigSolution.Infra.Domain
+namespace BigSolution.Domain
 {
     public abstract class ValueObject<T> : IEquatable<T>
         where T : ValueObject<T>
