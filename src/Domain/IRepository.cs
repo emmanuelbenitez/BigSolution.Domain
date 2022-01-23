@@ -1,6 +1,6 @@
 ﻿#region Copyright & License
 
-// Copyright © 2020 - 2021 Emmanuel Benitez
+// Copyright © 2020 - 2022 Emmanuel Benitez
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -17,22 +17,20 @@
 #endregion
 
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using JetBrains.Annotations;
 
-namespace BigSolution.Domain
+namespace BigSolution.Domain;
+
+[SuppressMessage("ReSharper", "UnusedMember.Global")]
+[UsedImplicitly]
+public interface IRepository<TAggregate>
+    where TAggregate : IAggregateRoot
 {
-    [SuppressMessage("ReSharper", "UnusedMember.Global")]
-    [UsedImplicitly]
-    public interface IRepository<TAggregate>
-        where TAggregate : IAggregateRoot
-    {
-        IQueryable<TAggregate> Entities { get; }
+    IQueryable<TAggregate> Entities { get; }
 
-        void Add(TAggregate entity);
+    void Add(TAggregate entity);
 
-        void Delete(TAggregate entity);
+    void Delete(TAggregate entity);
 
-        void Update(TAggregate entity);
-    }
+    void Update(TAggregate entity);
 }

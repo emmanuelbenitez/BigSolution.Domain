@@ -1,5 +1,8 @@
 trigger:
   - master
+  - dev/*
+pr:
+  - master
 
 variables:
   - template: version-variables.yml

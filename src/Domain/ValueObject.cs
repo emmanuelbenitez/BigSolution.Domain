@@ -1,6 +1,6 @@
 ﻿#region Copyright & License
 
-// Copyright © 2020 - 2021 Emmanuel Benitez
+// Copyright © 2020 - 2022 Emmanuel Benitez
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -16,55 +16,49 @@
 
 #endregion
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
+namespace BigSolution.Domain;
 
-namespace BigSolution.Domain
+public abstract class ValueObject<T> : IEquatable<T>
+    where T : ValueObject<T>
 {
-    public abstract class ValueObject<T> : IEquatable<T>
-        where T : ValueObject<T>
+    #region Operators
+
+    public static bool operator ==(ValueObject<T>? left, ValueObject<T>? right)
     {
-        #region Operators
-
-        public static bool operator ==(ValueObject<T> left, ValueObject<T> right)
-        {
-            return Equals(left, right);
-        }
-
-        public static bool operator !=(ValueObject<T> left, ValueObject<T> right)
-        {
-            return !(left == right);
-        }
-
-        #endregion
-
-        #region IEquatable<T> Members
-
-        public bool Equals(T other)
-        {
-            if (other == null) return false;
-
-            return GetAttributesToIncludeInEqualityCheck()
-                .SequenceEqual(other.GetAttributesToIncludeInEqualityCheck());
-        }
-
-        #endregion
-
-        #region Base Class Member Overrides
-
-        public override bool Equals(object obj)
-        {
-            return Equals(obj as T);
-        }
-
-        public override int GetHashCode()
-        {
-            return GetAttributesToIncludeInEqualityCheck().Aggregate(17, (current, obj) => current * 31 + (obj == null ? 0 : obj.GetHashCode()));
-        }
-
-        #endregion
-
-        protected abstract IEnumerable<object> GetAttributesToIncludeInEqualityCheck();
+        return Equals(left, right);
     }
+
+    public static bool operator !=(ValueObject<T>? left, ValueObject<T>? right)
+    {
+        return !(left == right);
+    }
+
+    #endregion
+
+    #region IEquatable<T> Members
+
+    public bool Equals(T? other)
+    {
+        if (other == null) return false;
+        return GetAttributesToIncludeInEqualityCheck()
+            .SequenceEqual(other.GetAttributesToIncludeInEqualityCheck());
+    }
+
+    #endregion
+
+    #region Base Class Member Overrides
+
+    public override bool Equals(object? other)
+    {
+        return ReferenceEquals(this, other) || other?.GetType() == GetType() && Equals((T?)other);
+    }
+
+    public override int GetHashCode()
+    {
+        return GetAttributesToIncludeInEqualityCheck().Aggregate(17, (hashCode, attribute) => hashCode * 31 + attribute.GetHashCode());
+    }
+
+    #endregion
+
+    protected abstract IEnumerable<object> GetAttributesToIncludeInEqualityCheck();
 }

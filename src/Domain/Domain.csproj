@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp3.1;netstandard2.1;netstandard2.0;net471;net472;net48;net5.0</TargetFrameworks>
-    <AssemblyTitle>BigSolution.Infra.Domain</AssemblyTitle>
+    <TargetFrameworks>net6.0;net5.0;netcoreapp3.1</TargetFrameworks> <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable> <AssemblyTitle>BigSolution.Infra.Domain</AssemblyTitle>
     <RootNamespace>BigSolution.Domain</RootNamespace>
   </PropertyGroup>
 
@@ -14,20 +14,17 @@
 
   <PropertyGroup>
     <GeneratePackageOnBuild Condition=" '$(GeneratePackageOnBuild)' == '' ">false</GeneratePackageOnBuild>
-    <PackageId>$(AssemblyTitle)</PackageId>
-    <PackageDescription>$(Description)</PackageDescription>
+    <PackageId>$(AssemblyTitle)</PackageId> <PackageDescription>$(Description)</PackageDescription>
     <!--<PackageIconUrl>icon url prop</PackageIconUrl>-->
     <PackageProjectUrl>$(RepositoryUrl)</PackageProjectUrl>
     <!--<PackageReleaseNotes>release notes prop</PackageReleaseNotes>-->
-    <PackageTags>domain infrastructure ddd</PackageTags>
-    <IncludeSymbols>true</IncludeSymbols>
-    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-    <AssemblyName>BigSolution.Infra.Domain</AssemblyName>
+    <PackageTags>domain infrastructure ddd</PackageTags> <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat> <AssemblyName>BigSolution.Infra.Domain</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="BigSolution.Infra.Validation" Version="2.0.0-preview.210201.0" />
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0">
+    <PackageReference Include="BigSolution.Infra.Validation" Version="2.0.0-preview.220123.1" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>

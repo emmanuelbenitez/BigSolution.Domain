@@ -25,4 +25,9 @@
 
   <Import Project="$(MSBuildThisFileDirectory)../.resources/Directory.Build.props" />
   <Import Project="$(MSBuildThisFileDirectory)../.settings/Directory.Build.props" />
+
+  <PropertyGroup>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+
 </Project>

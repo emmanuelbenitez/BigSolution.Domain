@@ -1,6 +1,6 @@
 ﻿#region Copyright & License
 
-// Copyright © 2020 - 2021 Emmanuel Benitez
+// Copyright © 2020 - 2022 Emmanuel Benitez
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -17,22 +17,19 @@
 #endregion
 
 using System.Diagnostics.CodeAnalysis;
-using System.Threading;
-using System.Threading.Tasks;
 using JetBrains.Annotations;
 
-namespace BigSolution.Domain
+namespace BigSolution.Domain;
+
+[UsedImplicitly]
+public interface IUnitOfWork
 {
-    [UsedImplicitly]
-    public interface IUnitOfWork
-    {
-        [SuppressMessage("ReSharper", "UnusedMember.Global")]
-        ITransaction BeginTransaction();
+    [SuppressMessage("ReSharper", "UnusedMember.Global")]
+    ITransaction BeginTransaction();
 
-        [SuppressMessage("ReSharper", "UnusedMember.Global")]
-        void Save();
+    [SuppressMessage("ReSharper", "UnusedMember.Global")]
+    void Save();
 
-        [SuppressMessage("ReSharper", "UnusedMember.Global")]
-        Task SaveAsync(CancellationToken cancellationToken = default);
-    }
+    [SuppressMessage("ReSharper", "UnusedMember.Global")]
+    Task SaveAsync(CancellationToken cancellationToken = default);
 }
