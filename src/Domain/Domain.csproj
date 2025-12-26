@@ -1,33 +1,36 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFrameworks>net6.0;net5.0;netcoreapp3.1</TargetFrameworks> <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable> <AssemblyTitle>BigSolution.Infra.Domain</AssemblyTitle>
-    <RootNamespace>BigSolution.Domain</RootNamespace>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFrameworks>net10.0;net9.0;net8.0</TargetFrameworks>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<Description>Core domain abstractions for DDD: entities, aggregate roots, value objects, repositories, unit of work and transactions.</Description>
+	</PropertyGroup>
 
-  <PropertyGroup>
-    <RepositoryType>git</RepositoryType>
-    <RepositoryUrl>https://github.com/emmanuelbenitez/BigSolution.Domain</RepositoryUrl>
-    <PublishRepositoryUrl>true</PublishRepositoryUrl>
-  </PropertyGroup>
+	<PropertyGroup>
+		<RepositoryType>git</RepositoryType>
+		<RepositoryUrl>https://github.com/emmanuelbenitez/BigSolution.Domain</RepositoryUrl>
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+	</PropertyGroup>
 
-  <PropertyGroup>
-    <GeneratePackageOnBuild Condition=" '$(GeneratePackageOnBuild)' == '' ">false</GeneratePackageOnBuild>
-    <PackageId>$(AssemblyTitle)</PackageId> <PackageDescription>$(Description)</PackageDescription>
-    <!--<PackageIconUrl>icon url prop</PackageIconUrl>-->
-    <PackageProjectUrl>$(RepositoryUrl)</PackageProjectUrl>
-    <!--<PackageReleaseNotes>release notes prop</PackageReleaseNotes>-->
-    <PackageTags>domain infrastructure ddd</PackageTags> <IncludeSymbols>true</IncludeSymbols>
-    <SymbolPackageFormat>snupkg</SymbolPackageFormat> <AssemblyName>BigSolution.Infra.Domain</AssemblyName>
-  </PropertyGroup>
+	<PropertyGroup>
+		<GeneratePackageOnBuild Condition=" '$(GeneratePackageOnBuild)' == '' ">false</GeneratePackageOnBuild>
+		<PackageId>$(AssemblyTitle)</PackageId>
+		<PackageDescription>$(Description)</PackageDescription>
+		<!--<PackageIconUrl>icon url prop</PackageIconUrl>-->
+		<PackageProjectUrl>$(RepositoryUrl)</PackageProjectUrl>
+		<!--<PackageReleaseNotes>release notes prop</PackageReleaseNotes>-->
+		<PackageTags>domain infrastructure ddd</PackageTags>
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+		<AssemblyName>BigSolution.Infra.Domain</AssemblyName>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="BigSolution.Infra.Validation" Version="2.0.0-preview.220123.1" />
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
 
 </Project>

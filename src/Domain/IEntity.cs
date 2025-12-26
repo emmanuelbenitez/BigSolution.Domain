@@ -18,4 +18,7 @@
 
 namespace BigSolution.Domain;
 
+/// <summary>
+/// Represents a domain entity, serving as a base contract for all entities within the domain.
+/// </summary>
 public interface IEntity { }

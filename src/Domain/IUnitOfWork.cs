@@ -1,6 +1,6 @@
 ﻿#region Copyright & License
 
-// Copyright © 2020 - 2022 Emmanuel Benitez
+// Copyright © 2020 - 2025 Emmanuel Benitez
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -16,20 +16,53 @@
 
 #endregion
 
-using System.Diagnostics.CodeAnalysis;
 using JetBrains.Annotations;
 
 namespace BigSolution.Domain;
 
+/// <summary>
+/// Represents a unit of work that encapsulates a set of operations to be performed as a single transaction.
+/// </summary>
+/// <remarks>
+/// This interface provides methods to manage transactions and persist changes to the underlying data store.
+/// </remarks>
 [UsedImplicitly]
 public interface IUnitOfWork
 {
-    [SuppressMessage("ReSharper", "UnusedMember.Global")]
+    /// <summary>
+    /// Begins a new transaction for the current unit of work.
+    /// </summary>
+    /// <remarks>
+    /// This method creates and returns an instance of <see cref="ITransaction"/>, which can be used to 
+    /// commit or roll back the changes made within the scope of the transaction. Ensure proper disposal 
+    /// of the returned <see cref="ITransaction"/> instance to release resources.
+    /// </remarks>
+    /// <returns>
+    /// An instance of <see cref="ITransaction"/> representing the newly started transaction.
+    /// </returns>
     ITransaction BeginTransaction();
 
-    [SuppressMessage("ReSharper", "UnusedMember.Global")]
+    /// <summary>
+    /// Persists all changes made within the current unit of work to the underlying data store.
+    /// </summary>
+    /// <remarks>
+    /// This method ensures that all changes tracked by the unit of work are saved to the data store. 
+    /// Use this method to commit changes in a synchronous manner.
+    /// </remarks>
     void Save();
 
-    [SuppressMessage("ReSharper", "UnusedMember.Global")]
+    /// <summary>
+    /// Asynchronously persists all changes made within the current unit of work to the underlying data store.
+    /// </summary>
+    /// <param name="cancellationToken">
+    /// A <see cref="CancellationToken"/> that can be used to cancel the save operation.
+    /// </param>
+    /// <returns>
+    /// A <see cref="Task"/> that represents the asynchronous save operation.
+    /// </returns>
+    /// <remarks>
+    /// This method ensures that all changes tracked by the unit of work are saved to the data store. 
+    /// Use this method when performing asynchronous operations to avoid blocking the calling thread.
+    /// </remarks>
     Task SaveAsync(CancellationToken cancellationToken = default);
 }

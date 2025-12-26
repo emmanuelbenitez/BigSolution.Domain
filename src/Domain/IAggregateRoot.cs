@@ -1,6 +1,6 @@
 ﻿#region Copyright & License
 
-// Copyright © 2020 - 2022 Emmanuel Benitez
+// Copyright © 2020 - 2025 Emmanuel Benitez
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -18,4 +18,7 @@
 
 namespace BigSolution.Domain;
 
+/// <summary>
+/// Represents the root entity in an aggregate, ensuring consistency and encapsulation within the aggregate boundary.
+/// </summary>
 public interface IAggregateRoot : IEntity { }

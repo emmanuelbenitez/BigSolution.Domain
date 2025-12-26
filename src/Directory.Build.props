@@ -17,17 +17,17 @@
 
 -->
 <Project>
-  <PropertyGroup>
-    <Major Condition=" '$(Major)' == '' ">1</Major>
-    <Minor Condition=" '$(Minor)' == '' ">2</Minor>
-    <Patch Condition=" '$(Patch)' == '' ">1</Patch>
-  </PropertyGroup>
+	<PropertyGroup>
+		<Major Condition=" '$(Major)' == '' ">1</Major>
+		<Minor Condition=" '$(Minor)' == '' ">2</Minor>
+		<Patch Condition=" '$(Patch)' == '' ">1</Patch>
 
-  <Import Project="$(MSBuildThisFileDirectory)../.resources/Directory.Build.props" />
-  <Import Project="$(MSBuildThisFileDirectory)../.settings/Directory.Build.props" />
+		<AssemblyName>BigSolution.$(MSBuildProjectName)</AssemblyName>
+		<RootNamespace>BigSolution.$([System.String]::Copy($(MSBuildProjectName)).Replace("Tests", "").TrimEnd('.'))</RootNamespace>
+		<TargetFramework>net10.0</TargetFramework>
+		<LangVersion>latest</LangVersion>
+	</PropertyGroup>
 
-  <PropertyGroup>
-    <LangVersion>latest</LangVersion>
-  </PropertyGroup>
-
+	<Import Project="$(MSBuildThisFileDirectory)../.resources/Directory.Build.props" />
+	<Import Project="$(MSBuildThisFileDirectory)../.settings/Directory.Build.props" />
 </Project>
