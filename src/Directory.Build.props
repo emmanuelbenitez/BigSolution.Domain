@@ -24,7 +24,6 @@
 
 		<AssemblyName>BigSolution.$(MSBuildProjectName)</AssemblyName>
 		<RootNamespace>BigSolution.$([System.String]::Copy($(MSBuildProjectName)).Replace("Tests", "").TrimEnd('.'))</RootNamespace>
-		<TargetFramework>net10.0</TargetFramework>
 		<LangVersion>latest</LangVersion>
 	</PropertyGroup>
 
